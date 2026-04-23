@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 665" width="820" height="665">
+  <defs>
+    <marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#484f58"/>
+    </marker>
+    <marker id="arr-ext" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <polygon points="0 0, 7 3.5, 0 7" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="820" height="665" fill="#0d1117"/>
+
+  <!-- ── Browser ─────────────────────────────────────── -->
+  <rect x="300" y="10" width="200" height="50" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="400" y="31" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="13" font-weight="600">Browser</text>
+  <text x="400" y="48" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">User</text>
+
+  <!-- Arrow Browser → Cloudflare -->
+  <line x1="400" y1="60" x2="400" y2="93" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="410" y="80" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="9">HTTPS</text>
+
+  <!-- ── Cloudflare ──────────────────────────────────── -->
+  <rect x="268" y="95" width="264" height="55" rx="5" fill="#1a120a" stroke="#f97316" stroke-width="1.5"/>
+  <text x="400" y="117" text-anchor="middle" fill="#fdba74" font-family="'SF Mono',ui-monospace,monospace" font-size="13" font-weight="600">Cloudflare</text>
+  <text x="400" y="136" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">DNS · SSL/TLS edge termination · CDN</text>
+
+  <!-- Arrow Cloudflare → nginx -->
+  <line x1="400" y1="150" x2="400" y2="208" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="410" y="183" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="9">HTTPS (Cloudflare origin cert)</text>
+
+  <!-- ── EC2 boundary ────────────────────────────────── -->
+  <rect x="10" y="185" width="648" height="453" rx="7" fill="rgba(210,153,34,0.04)" stroke="#d29922" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="24" y="201" fill="#d29922" font-family="'SF Mono',ui-monospace,monospace" font-size="10" font-weight="600">AWS EC2</text>
+  <text x="78" y="201" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">  t3.small · us-east-1 · Ubuntu 22.04 LTS · 30 GB gp3 · Elastic IP</text>
+
+  <!-- ── nginx ──────────────────────────────────────── -->
+  <rect x="295" y="210" width="210" height="50" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="400" y="231" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="12" font-weight="600">nginx  :80 / :443</text>
+  <text x="400" y="248" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">Reverse proxy · TLS termination</text>
+
+  <!-- nginx fork stem -->
+  <line x1="400" y1="260" x2="400" y2="280" stroke="#484f58" stroke-width="1.5"/>
+  <!-- Horizontal fork bar -->
+  <line x1="130" y1="280" x2="542" y2="280" stroke="#484f58" stroke-width="1.5"/>
+  <!-- Left drop → lens-gateway -->
+  <line x1="130" y1="280" x2="130" y2="300" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Right drop → portfolio-ui -->
+  <line x1="542" y1="280" x2="542" y2="300" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Fork labels -->
+  <text x="252" y="276" text-anchor="middle" fill="#484f58" font-family="'SF Mono',ui-monospace,monospace" font-size="9">/console /query /documents /health</text>
+  <text x="485" y="276" text-anchor="middle" fill="#484f58" font-family="'SF Mono',ui-monospace,monospace" font-size="9">/ root</text>
+
+  <!-- ── lens-gateway ────────────────────────────────── -->
+  <rect x="40" y="300" width="180" height="50" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="130" y="321" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="12" font-weight="600">lens-gateway</text>
+  <text x="130" y="339" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">FastAPI :8080</text>
+
+  <!-- ── portfolio-ui ────────────────────────────────── -->
+  <rect x="452" y="300" width="185" height="50" rx="5" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="544" y="321" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="12" font-weight="600">portfolio-ui</text>
+  <text x="544" y="339" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">Next.js :3000</text>
+
+  <!-- Gateway bus stem -->
+  <line x1="130" y1="350" x2="130" y2="377" stroke="#484f58" stroke-width="1.5"/>
+  <!-- Horizontal bus bar -->
+  <line x1="92" y1="377" x2="432" y2="377" stroke="#484f58" stroke-width="1.5"/>
+  <!-- Drops to services -->
+  <line x1="92"  y1="377" x2="92"  y2="400" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="262" y1="377" x2="262" y2="400" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="432" y1="377" x2="432" y2="400" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── lens-ingestion ─────────────────────────────── -->
+  <rect x="15" y="400" width="155" height="50" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="92" y="421" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="11" font-weight="600">lens-ingestion</text>
+  <text x="92" y="439" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">FastAPI :8001</text>
+
+  <!-- ── lens-retrieval ─────────────────────────────── -->
+  <rect x="185" y="400" width="155" height="50" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="262" y="421" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="11" font-weight="600">lens-retrieval</text>
+  <text x="262" y="439" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">FastAPI :8002</text>
+
+  <!-- ── lens-query ─────────────────────────────────── -->
+  <rect x="355" y="400" width="155" height="50" rx="5" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="432" y="421" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="11" font-weight="600">lens-query</text>
+  <text x="432" y="439" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">FastAPI :8003</text>
+
+  <!-- Services → ChromaDB (diagonal convergence) -->
+  <line x1="92"  y1="450" x2="220" y2="503" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="262" y1="450" x2="262" y2="503" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="432" y1="450" x2="305" y2="503" stroke="#484f58" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── ChromaDB ───────────────────────────────────── -->
+  <rect x="175" y="503" width="175" height="52" rx="5" fill="#100c1e" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="262" y="524" text-anchor="middle" fill="#c9d1d9" font-family="'SF Mono',ui-monospace,monospace" font-size="12" font-weight="600">ChromaDB</text>
+  <text x="262" y="542" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">Vector DB :8000 · persistent vol</text>
+
+  <!-- lens-query → Ollama Cloud API (external, dashed) -->
+  <line x1="510" y1="425" x2="665" y2="425" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-ext)"/>
+  <text x="587" y="418" text-anchor="middle" fill="#3fb950" font-family="'SF Mono',ui-monospace,monospace" font-size="9">HTTPS · Bearer token</text>
+
+  <!-- ── Ollama Cloud API (external) ───────────────── -->
+  <rect x="665" y="395" width="148" height="78" rx="5" fill="#0a1a0a" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="5,2"/>
+  <text x="739" y="415" text-anchor="middle" fill="#3fb950" font-family="'SF Mono',ui-monospace,monospace" font-size="12" font-weight="600">Ollama Cloud</text>
+  <text x="739" y="433" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">api.ollama.com</text>
+  <text x="739" y="450" text-anchor="middle" fill="#8b949e" font-family="'SF Mono',ui-monospace,monospace" font-size="10">30+ open-source LLMs</text>
+  <text x="739" y="466" text-anchor="middle" fill="#484f58" font-family="'SF Mono',ui-monospace,monospace" font-size="9">External · no GPU on EC2</text>
+
+  <!-- Footer notes (below EC2 boundary) -->
+  <text x="24" y="651" fill="#484f58" font-family="'SF Mono',ui-monospace,monospace" font-size="9">7 containers · Docker bridge network (portfolio) · systemd auto-start · 6 GB swap</text>
+  <text x="24" y="662" fill="#484f58" font-family="'SF Mono',ui-monospace,monospace" font-size="9">Cloudflare edge SSL → Cloudflare origin cert on nginx → all internal traffic plain HTTP</text>
+</svg>

@@ -1,0 +1,20 @@
+ARG BASE_IMAGE=shared-base:latest
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+COPY shared/ ./shared/
+COPY services/__init__.py ./services/
+
+ARG SERVICE=api_gateway
+COPY services/${SERVICE}/ ./services/${SERVICE}/
+ENV SERVICE=${SERVICE}
+
+# Gateway also serves the pipeline debugger UI (static HTML)
+COPY data/ ./data/
+COPY *.html ./
+
+ARG PORT=8080
+ENV PORT=${PORT}
+
+CMD ["sh", "-c", "uvicorn services.${SERVICE}.main:app --host 0.0.0.0 --port ${PORT}"]

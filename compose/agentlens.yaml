@@ -1,0 +1,81 @@
+services:
+  lens-ingestion:
+    build:
+      context: /home/ubuntu/apps/agentlens
+      dockerfile: /home/ubuntu/deploy/docker/Dockerfile.svc
+      args:
+        BASE_IMAGE: shared-ml:latest
+        SERVICE: ingestion
+        PORT: "8001"
+    container_name: lens-ingestion
+    environment:
+      CHROMA_HOST: http://chromadb:8000
+    networks:
+      - portfolio
+    restart: unless-stopped
+
+  lens-retrieval:
+    build:
+      context: /home/ubuntu/apps/agentlens
+      dockerfile: /home/ubuntu/deploy/docker/Dockerfile.svc
+      args:
+        BASE_IMAGE: shared-ml:latest
+        SERVICE: retrieval
+        PORT: "8002"
+    container_name: lens-retrieval
+    environment:
+      CHROMA_HOST: http://chromadb:8000
+    networks:
+      - portfolio
+    restart: unless-stopped
+
+  lens-query:
+    build:
+      context: /home/ubuntu/apps/agentlens
+      dockerfile: /home/ubuntu/deploy/docker/Dockerfile.svc
+      args:
+        BASE_IMAGE: shared-base:latest
+        SERVICE: query
+        PORT: "8003"
+    container_name: lens-query
+    environment:
+      OLLAMA_HOST:          ${OLLAMA_HOST}
+      OLLAMA_API_KEY:       ${OLLAMA_API_KEY}
+      CHROMA_HOST:          http://chromadb:8000
+      RETRIEVAL_URL:        http://lens-retrieval:8002
+      LLM_MODEL:            ${LLM_MODEL:-gemini-3-flash-preview}
+      LLM_MODEL_AGENT:      ${LLM_MODEL_AGENT:-devstral-small-2:24b}
+      LLM_MODEL_GRADER:     ${LLM_MODEL_GRADER:-nemotron-3-nano:30b}
+      LLM_MODEL_JUDGE:      ${LLM_MODEL_JUDGE:-gpt-oss:120b}
+      LLM_MODEL_FALLBACK:   ${LLM_MODEL_FALLBACK:-gemini-3-flash-preview}
+      LLM_THINK:            ${LLM_THINK:-true}
+      LLM_THINK_AGENT:      ${LLM_THINK_AGENT:-}
+      LLM_THINK_GRADER:     ${LLM_THINK_GRADER:-}
+      LLM_THINK_JUDGE:      ${LLM_THINK_JUDGE:-}
+      LLM_THINK_FALLBACK:   ${LLM_THINK_FALLBACK:-}
+    networks:
+      - portfolio
+    restart: unless-stopped
+
+  lens-gateway:
+    build:
+      context: /home/ubuntu/apps/agentlens
+      dockerfile: /home/ubuntu/deploy/docker/Dockerfile.gateway
+      args:
+        BASE_IMAGE: shared-base:latest
+        SERVICE: api_gateway
+        PORT: "8080"
+    container_name: lens-gateway
+    environment:
+      INGESTION_URL:  http://lens-ingestion:8001
+      RETRIEVAL_URL:  http://lens-retrieval:8002
+      QUERY_URL:      http://lens-query:8003
+      OLLAMA_HOST:    ${OLLAMA_HOST}
+      OLLAMA_API_KEY: ${OLLAMA_API_KEY}
+    networks:
+      - portfolio
+    restart: unless-stopped
+
+networks:
+  portfolio:
+    external: true

@@ -1,0 +1,27 @@
+# Terraform state and secrets — never commit
+terraform/terraform.tfvars
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform/
+terraform/tfplan
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Environment files with real secrets
+.env
+*.env.local
+
+# SSH key material
+*.pem
+*.key
+*.p12
+id_rsa
+id_ed25519
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,13 @@
+services:
+  portfolio-ui:
+    build:
+      context: /home/ubuntu/apps/portfolio
+      dockerfile: /home/ubuntu/deploy/docker/Dockerfile.ui
+    container_name: portfolio-ui
+    networks:
+      - portfolio
+    restart: unless-stopped
+
+networks:
+  portfolio:
+    external: true
